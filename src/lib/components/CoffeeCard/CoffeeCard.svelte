@@ -1,5 +1,6 @@
 <script lang='ts'>
   import type { Coffee } from '@lib/stores/coffeeStore'
+  import { isImageLoading } from '@lib/stores/coffeeStore'
   import styles from './CoffeeCard.module.css'
 
   export let coffee: Coffee
@@ -7,14 +8,20 @@
   let imgLoaded = false
   let imgError = false
 
+  const onFinish = () => {
+    imgLoaded = true
+    isImageLoading.set(false)
+  }
+
   const onError = () => {
     imgError = true
-    imgLoaded = true
+    onFinish()
   }
 </script>
 
 <div class={styles.card} data-testid='card'>
   <div class={styles.imageWrapper} data-testid='image-wrapper'>
+
     {#if coffee.image && !imgError}
       {#if !imgLoaded}
         <div class={styles.placeholder}></div>
@@ -25,14 +32,13 @@
         alt={coffee.title}
         loading='lazy'
         decoding='async'
-        on:load={() => (imgLoaded = true)}
+        on:load={onFinish}
         on:error={onError}
       />
     {:else}
-      <div class={styles.fallbackIcon}>
-        No image
-      </div>
+      <div class={styles.fallbackIcon}>No image</div>
     {/if}
+
   </div>
 
   <h3 class={styles.title}>{coffee.title}</h3>

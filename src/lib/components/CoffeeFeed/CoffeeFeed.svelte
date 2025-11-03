@@ -1,7 +1,7 @@
 <script lang='ts'>
   import CoffeeCard from '@lib/components/CoffeeCard/CoffeeCard.svelte'
   import AppHeader from '@lib/components/Header/AppHeader.svelte'
-  import { addOneCoffee, coffees, isLoading } from '@lib/stores/coffeeStore'
+  import { addOneCoffee, coffees, isImageLoading, isLoading } from '@lib/stores/coffeeStore'
   import { theme } from '@lib/stores/themeStore'
   import { onDestroy, onMount } from 'svelte'
   import styles from './CoffeeFeed.module.css'
@@ -53,7 +53,7 @@
   </main>
 
   <footer class={styles.footer}>
-    <button data-testid='add-button' class={styles.button} disabled={$isLoading} on:click={addOneCoffee}>
+    <button data-testid='add-button' class={styles.button} disabled={$isLoading || $isImageLoading} on:click={addOneCoffee}>
       Add Coffee
     </button>
   </footer>

@@ -11,6 +11,7 @@ export interface Coffee {
 
 export const coffees = writable<Coffee[]>([])
 export const isLoading = writable(false)
+export const isImageLoading = writable(false)
 
 const API_URL = 'https://api.sampleapis.com/coffee/hot'
 
@@ -69,7 +70,7 @@ async function getCoffeeList() {
 }
 
 export async function addOneCoffee() {
-  if (get(isLoading)) {
+  if (get(isLoading) || get(isImageLoading)) {
     return
   }
 
@@ -78,6 +79,7 @@ export async function addOneCoffee() {
   try {
     await getCoffeeList()
     const random = all[Math.floor(Math.random() * all.length)]
+    isImageLoading.set(!!random.image)
     coffees.update(list => [...list, random])
   }
   finally {
