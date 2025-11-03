@@ -27,9 +27,9 @@
   <h3>{coffee.title}</h3>
   <p>{coffee.description}</p>
 
-  <div>
+  <div class={styles.tags}>
     {#each coffee.ingredients as ing}
-      <span class='tag'>{ing}</span>
+      <span class={styles.tag}>{ing}</span>
     {/each}
   </div>
 </div>
