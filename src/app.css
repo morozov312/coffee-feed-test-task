@@ -18,27 +18,79 @@ body {
   margin: 0;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
 :root {
   --bg: #f5f5f5;
   --card-bg: #ffffff;
   --text: #333333;
   --muted: #666666;
-
   --button-bg: #f7f7f7;
   --button-border: #dddddd;
   --button-hover: #ffffff;
   --button-hover-border: #cccccc;
   --button-active: #f0f0f0;
-
   --tag-bg: #efefef;
-
   --placeholder-fg: #aaaaaa;
   --placeholder-a: #eeeeee;
   --placeholder-b: #f8f8f8;
-
   --shadow-rgb: 0 0 0;
   --shadow-1: 0 2px 6px rgba(var(--shadow-rgb) / 0.05);
   --shadow-2: 0 2px 10px rgba(var(--shadow-rgb) / 0.06);
   --shadow-3: 0 3px 10px rgba(var(--shadow-rgb) / 0.08);
   --shadow-footer: 0 -2px 8px rgba(var(--shadow-rgb) / 0.05);
+
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #c1c1c1;
+  --scrollbar-thumb-hover: #a8a8a8;
+}
+
+[data-theme='dark'] {
+  --bg: #0a0a0a;
+  --card-bg: #1a1a1a;
+  --text: #ffffff;
+  --muted: #a0a0a0;
+  --button-bg: #2a2a2a;
+  --button-border: #404040;
+  --button-hover: #333333;
+  --button-hover-border: #505050;
+  --button-active: #262626;
+  --tag-bg: #2a2a2a;
+  --placeholder-fg: #555555;
+  --placeholder-a: #252525;
+  --placeholder-b: #2a2a2a;
+  --shadow-rgb: 255 255 255;
+  --shadow-1: 0 2px 6px rgba(var(--shadow-rgb) / 0.1);
+  --shadow-2: 0 2px 10px rgba(var(--shadow-rgb) / 0.08);
+  --shadow-3: 0 3px 10px rgba(var(--shadow-rgb) / 0.06);
+  --shadow-footer: 0 -2px 8px rgba(var(--shadow-rgb) / 0.05);
+  --scrollbar-track: #2a2a2a;
+  --scrollbar-thumb: #555555;
+  --scrollbar-thumb-hover: #6b6b6b;
 }
