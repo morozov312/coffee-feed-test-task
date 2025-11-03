@@ -1,11 +1,38 @@
 <script lang='ts'>
   import CoffeeCard from '@lib/components/CoffeeCard/CoffeeCard.svelte'
   import { addOneCoffee, coffees, isLoading } from '@lib/stores/coffeeStore'
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import styles from './CoffeeFeed.module.css'
+
+  const INACTIVITY_TIMEOUT_MS = 30000 // 30 seconds
+
+  let inactivityTimer: number | null = null
+
+  const resetInactivityTimer = () => {
+    if (inactivityTimer) {
+      clearTimeout(inactivityTimer)
+    }
+    inactivityTimer = setTimeout(() => {
+      addOneCoffee()
+      resetInactivityTimer()
+    }, INACTIVITY_TIMEOUT_MS)
+  }
+
+  const handleUserActivity = () => {
+    resetInactivityTimer()
+  }
 
   onMount(() => {
     addOneCoffee()
+    resetInactivityTimer()
+    window.addEventListener('click', handleUserActivity)
+  })
+
+  onDestroy(() => {
+    if (inactivityTimer) {
+      clearTimeout(inactivityTimer)
+    }
+    window.removeEventListener('click', handleUserActivity)
   })
 </script>
 
@@ -23,5 +50,4 @@
   <footer class={styles.footer}>
     <button class={styles.button} disabled={$isLoading} on:click={addOneCoffee}>Add Coffee</button>
   </footer>
-
 </div>
