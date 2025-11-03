@@ -1,9 +1,9 @@
 <script lang='ts'>
   import CoffeeCard from '@lib/components/CoffeeCard/CoffeeCard.svelte'
   import AppHeader from '@lib/components/Header/AppHeader.svelte'
-  import { addOneCoffee, coffees, isLoading } from '@lib/stores/coffeeStore'
+  import { addOneCoffee, coffees, isImageLoading, isLoading } from '@lib/stores/coffeeStore'
   import { theme } from '@lib/stores/themeStore'
-  import { onDestroy, onMount } from 'svelte'
+  import { onDestroy, onMount, tick } from 'svelte'
   import styles from './CoffeeFeed.module.css'
 
   const INACTIVITY_TIMEOUT_MS = 30000
@@ -35,12 +35,30 @@
     }
     window.removeEventListener('click', handleUserActivity)
   })
+
+  // autoscroll to new item
+  let endRef: HTMLDivElement | null = null
+
+  async function scrollToBottom() {
+    await tick()
+    if (endRef) {
+      endRef.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    }
+  }
+
+  $: if ($coffees.length > 0) {
+    scrollToBottom()
+  }
+
 </script>
 
 <div class={styles.wrapperContainer} data-theme={$theme}>
   <AppHeader />
 
-  <main class={styles.wrapper} data-testid='feed'>
+  <main class={styles.wrapper} data-testid='feed' bind:this={feedEl}>
     {#if $coffees.length === 0 && $isLoading}
       <div class={styles.spinner} data-testid='spinner'></div>
     {:else if $coffees.length === 0}
@@ -50,10 +68,12 @@
         <CoffeeCard {coffee} />
       {/each}
     {/if}
+    <div aria-hidden='true' bind:this={endRef}></div>
   </main>
 
   <footer class={styles.footer}>
-    <button data-testid='add-button' class={styles.button} disabled={$isLoading} on:click={addOneCoffee}>
+    <button data-testid='add-button' class={styles.button} disabled={$isLoading || $isImageLoading}
+            on:click={addOneCoffee}>
       Add Coffee
     </button>
   </footer>

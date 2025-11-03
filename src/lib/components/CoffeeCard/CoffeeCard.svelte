@@ -1,5 +1,6 @@
 <script lang='ts'>
   import type { Coffee } from '@lib/stores/coffeeStore'
+  import { isImageLoading } from '@lib/stores/coffeeStore'
   import styles from './CoffeeCard.module.css'
 
   export let coffee: Coffee
@@ -7,33 +8,35 @@
   let imgLoaded = false
   let imgError = false
 
-  const onError = (e: Event) => {
-    imgError = true
-    imgLoaded = true;
-    (e.currentTarget as HTMLImageElement).style.display = 'none'
+  const onFinish = () => {
+    imgLoaded = true
+    isImageLoading.set(false)
   }
 
+  const onError = () => {
+    imgError = true
+    onFinish()
+  }
 </script>
 
 <div class={styles.card} data-testid='card'>
   <div class={styles.imageWrapper} data-testid='image-wrapper'>
-    {#if !imgLoaded}
-      <div class={styles.placeholder}></div>
-    {/if}
 
-    {#if !imgError}
+    {#if coffee.image && !imgError}
+      {#if !imgLoaded}
+        <div class={styles.placeholder}></div>
+      {/if}
       <img
-        class={styles.image}
+        class={imgLoaded ? styles.image : styles.imageHidden}
         src={coffee.image}
         alt={coffee.title}
         loading='lazy'
-        on:load={() => (imgLoaded = true)}
+        decoding='async'
+        on:load={onFinish}
         on:error={onError}
       />
-    {/if}
-
-    {#if imgError}
-      <div class={styles.fallbackIcon} aria-label='image unavailable'>No image</div>
+    {:else}
+      <div class={styles.fallbackIcon}>No image</div>
     {/if}
 
   </div>
