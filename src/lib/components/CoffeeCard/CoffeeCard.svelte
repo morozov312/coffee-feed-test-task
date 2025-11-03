@@ -23,7 +23,7 @@
 
     {#if !imgError}
       <img
-        class={imgLoaded ? styles.image : styles.imageHidden}
+        class={styles.image}
         src={coffee.image}
         alt={coffee.title}
         loading='lazy'

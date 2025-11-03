@@ -14,12 +14,12 @@
 
 .wrapper {
   flex: 1;
-  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 16px;
+  overflow-y: auto;
   padding: 16px;
   box-sizing: border-box;
   background: var(--bg);
