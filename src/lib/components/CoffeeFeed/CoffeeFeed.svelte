@@ -1,16 +1,17 @@
 <script lang='ts'>
-  import CoffeeCard from '@lib/components/CoffeeCard.svelte'
+  import CoffeeCard from '@lib/components/coffeeCard/CoffeeCard.svelte'
   import { addOneCoffee, coffees } from '@lib/stores/coffeeStore'
   import { onMount } from 'svelte'
+  import styles from './CoffeeFeed.module.css'
 
   onMount(() => {
     addOneCoffee()
   })
 </script>
 
-<main>
+<main class={styles.wrapper}>
   {#if $coffees.length === 0}
-    <p>loading…</p>
+    <p></p>
   {:else}
     {#each $coffees as coffee, i (coffee.title + i)}
       <CoffeeCard {coffee} />

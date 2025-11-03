@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import CoffeeFeed from '@lib/components/CoffeeFeed.svelte'
+  import CoffeeFeed from '@lib/components/CoffeeFeed/CoffeeFeed.svelte'
 
 </script>
 
