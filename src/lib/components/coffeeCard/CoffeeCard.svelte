@@ -3,6 +3,7 @@
   import styles from './CoffeeCard.module.css'
 
   export let coffee: Coffee
+
   let imgLoaded = false
 
 </script>
@@ -14,7 +15,7 @@
     {/if}
 
     <img
-      class={!imgLoaded ? styles.hidden : styles.image}
+      class={imgLoaded ? styles.image : styles.hidden}
       src={coffee.image}
       alt={coffee.title}
       loading='lazy'
