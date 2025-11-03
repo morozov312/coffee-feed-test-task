@@ -46,7 +46,7 @@
     {:else if $coffees.length === 0}
       <div class={styles.empty}>No coffee cards</div>
     {:else}
-      {#each $coffees as coffee, i (coffee.title + i)}
+      {#each $coffees as coffee, i (`${coffee.id}-${i}}`)}
         <CoffeeCard {coffee} />
       {/each}
     {/if}
