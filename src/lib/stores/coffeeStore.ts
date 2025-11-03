@@ -1,3 +1,4 @@
+import { isUrl } from '@lib/utils/isUrl'
 import { get, writable } from 'svelte/store'
 
 export interface Coffee {
@@ -5,7 +6,7 @@ export interface Coffee {
   title: string
   description: string
   ingredients: string[] | string
-  image: string
+  image: string | null
 }
 
 export const coffees = writable<Coffee[]>([])
@@ -16,17 +17,17 @@ const API_URL = 'https://api.sampleapis.com/coffee/hot'
 let all: Coffee[] = []
 
 /**
- * Universal mapper for API data.
- * - Converts a string like "[a,b,c]" → ["abc"]
- * - Converts a plain string "milk" → ["milk"]
- * - Converts an array ["a","b","c"] → ["abc"]
- * - Fallback: returns an empty array
+ * Maps raw API coffee data to a consistent format.
+ * - Ensures `ingredients` is always an array of strings
+ *   (handles plain strings, stringified arrays, and real arrays)
+ * - Validates `image` field and sets it to `null` if the value is not a valid URL
+ * - Returns a normalized `Coffee` object ready for use in the UI
  */
 function normalizeCoffee(data: Coffee): Coffee {
+  // normalize ingredients
   let ingredients: string[] = []
 
   if (Array.isArray(data.ingredients)) {
-    // join array elements into a single string
     ingredients = [data.ingredients.join('')]
   }
   else if (typeof data.ingredients === 'string') {
@@ -44,7 +45,10 @@ function normalizeCoffee(data: Coffee): Coffee {
     }
   }
 
-  return { ...data, ingredients }
+  // normalize image
+  const image = isUrl(data.image) ? data.image : null
+
+  return { ...data, image, ingredients }
 }
 
 async function getCoffeeList() {

@@ -7,35 +7,32 @@
   let imgLoaded = false
   let imgError = false
 
-  const onError = (e: Event) => {
+  const onError = () => {
     imgError = true
-    imgLoaded = true;
-    (e.currentTarget as HTMLImageElement).style.display = 'none'
+    imgLoaded = true
   }
-
 </script>
 
 <div class={styles.card} data-testid='card'>
   <div class={styles.imageWrapper} data-testid='image-wrapper'>
-    {#if !imgLoaded}
-      <div class={styles.placeholder}></div>
-    {/if}
-
-    {#if !imgError}
+    {#if coffee.image && !imgError}
+      {#if !imgLoaded}
+        <div class={styles.placeholder}></div>
+      {/if}
       <img
-        class={styles.image}
+        class={imgLoaded ? styles.image : styles.imageHidden}
         src={coffee.image}
         alt={coffee.title}
         loading='lazy'
+        decoding='async'
         on:load={() => (imgLoaded = true)}
         on:error={onError}
       />
+    {:else}
+      <div class={styles.fallbackIcon}>
+        No image
+      </div>
     {/if}
-
-    {#if imgError}
-      <div class={styles.fallbackIcon} aria-label='image unavailable'>No image</div>
-    {/if}
-
   </div>
 
   <h3 class={styles.title}>{coffee.title}</h3>
