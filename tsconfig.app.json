@@ -5,7 +5,17 @@
     "target": "ES2022",
     "moduleDetection": "force",
     "useDefineForClassFields": true,
+    "baseUrl": ".",
     "module": "ESNext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ]
+    },
     "types": ["svelte", "vite/client"],
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.
