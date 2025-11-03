@@ -18,6 +18,8 @@ let all: Coffee[] = []
 async function getCoffeeList() {
   // cache
   if (all.length) {
+    // simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 500))
     return
   }
 
