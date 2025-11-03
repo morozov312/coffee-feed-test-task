@@ -40,9 +40,9 @@
 <div class={styles.wrapperContainer} data-theme={$theme}>
   <AppHeader />
 
-  <main class={styles.wrapper}>
+  <main class={styles.wrapper} data-testid='feed'>
     {#if $coffees.length === 0 && $isLoading}
-      <div class={styles.spinner}></div>
+      <div class={styles.spinner} data-testid='spinner'></div>
     {:else if $coffees.length === 0}
       <div class={styles.empty}>No coffee cards</div>
     {:else}
@@ -53,7 +53,7 @@
   </main>
 
   <footer class={styles.footer}>
-    <button class={styles.button} disabled={$isLoading} on:click={addOneCoffee}>
+    <button data-testid='add-button' class={styles.button} disabled={$isLoading} on:click={addOneCoffee}>
       Add Coffee
     </button>
   </footer>

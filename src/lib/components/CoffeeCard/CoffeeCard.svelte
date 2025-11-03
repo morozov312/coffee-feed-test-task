@@ -15,8 +15,8 @@
 
 </script>
 
-<div class={styles.card}>
-  <div class={styles.imageWrapper}>
+<div class={styles.card} data-testid='card'>
+  <div class={styles.imageWrapper} data-testid='image-wrapper'>
     {#if !imgLoaded}
       <div class={styles.placeholder}></div>
     {/if}
@@ -41,7 +41,7 @@
   <h3 class={styles.title}>{coffee.title}</h3>
   <p class={styles.description}>{coffee.description}</p>
 
-  <div class={styles.tagsWrapper}>
+  <div class={styles.tagsWrapper} data-testid='tags'>
     {#each coffee.ingredients as ing}
       <span class={styles.tag}>{ing}</span>
     {/each}
