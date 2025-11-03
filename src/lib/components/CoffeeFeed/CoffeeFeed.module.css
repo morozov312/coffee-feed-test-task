@@ -7,7 +7,8 @@
 .wrapperContainer {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100svh; /* (Safari/Chrome) */
+  height: 100dvh;
   overflow: hidden;
   background: var(--bg);
 }
