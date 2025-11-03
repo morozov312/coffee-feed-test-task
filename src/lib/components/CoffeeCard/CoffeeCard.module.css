@@ -98,8 +98,18 @@
   font-size: 16px;
   color: var(--muted);
 }
+
 .title {
   margin-top: 20px;
   margin-bottom: 0;
   color: var(--text);
+}
+
+.fallbackIcon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  color: var(--placeholder-fg);
 }

@@ -5,6 +5,13 @@
   export let coffee: Coffee
 
   let imgLoaded = false
+  let imgError = false
+
+  const onError = (e: Event) => {
+    imgError = true
+    imgLoaded = true;
+    (e.currentTarget as HTMLImageElement).style.display = 'none'
+  }
 
 </script>
 
@@ -14,13 +21,20 @@
       <div class={styles.placeholder}></div>
     {/if}
 
-    <img
-      class={imgLoaded ? styles.image : styles.hidden}
-      src={coffee.image}
-      alt={coffee.title}
-      loading='lazy'
-      on:load={() => (imgLoaded = true)}
-    />
+    {#if !imgError}
+      <img
+        class={imgLoaded ? styles.image : styles.hidden}
+        src={coffee.image}
+        alt={coffee.title}
+        loading='lazy'
+        on:load={() => (imgLoaded = true)}
+        on:error={onError}
+      />
+    {/if}
+
+    {#if imgError}
+      <div class={styles.fallbackIcon} aria-label='image unavailable'>No image</div>
+    {/if}
 
   </div>
 

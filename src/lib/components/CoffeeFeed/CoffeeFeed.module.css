@@ -1,3 +1,9 @@
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .wrapperContainer {
   display: flex;
   flex-direction: column;
@@ -26,7 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 70px;
   background: var(--card-bg);
   box-shadow: var(--shadow-footer);
   z-index: 10;
@@ -73,10 +79,4 @@
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin: 100px auto;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
