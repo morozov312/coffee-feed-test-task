@@ -1,7 +1,7 @@
 import { get, writable } from 'svelte/store'
 
 export interface Coffee {
-  id?: number
+  id: number | string
   title: string
   description: string
   ingredients: string[] | string
