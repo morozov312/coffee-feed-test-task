@@ -38,8 +38,10 @@
 
 <div class={styles.wrapperContainer}>
   <main class={styles.wrapper}>
-    {#if $coffees.length === 0}
-      <p></p>
+    {#if $coffees.length === 0 && $isLoading}
+      <div class={styles.spinner}></div>
+    {:else if $coffees.length === 0}
+      <div>No coffee cards</div>
     {:else}
       {#each $coffees as coffee, i (coffee.title + i)}
         <CoffeeCard {coffee} />
