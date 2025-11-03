@@ -24,10 +24,10 @@
 
   </div>
 
-  <h3>{coffee.title}</h3>
-  <p>{coffee.description}</p>
+  <h3 class={styles.title}>{coffee.title}</h3>
+  <p class={styles.description}>{coffee.description}</p>
 
-  <div class={styles.tags}>
+  <div class={styles.tagsWrapper}>
     {#each coffee.ingredients as ing}
       <span class={styles.tag}>{ing}</span>
     {/each}
