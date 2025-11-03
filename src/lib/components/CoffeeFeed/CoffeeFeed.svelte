@@ -11,8 +11,10 @@
   let inactivityTimer: number | null = null
 
   const resetInactivityTimer = () => {
-    if (inactivityTimer)
+    if (inactivityTimer) {
       clearTimeout(inactivityTimer)
+    }
+
     inactivityTimer = setTimeout(() => {
       addOneCoffee()
       resetInactivityTimer()
@@ -28,8 +30,9 @@
   })
 
   onDestroy(() => {
-    if (inactivityTimer)
+    if (inactivityTimer) {
       clearTimeout(inactivityTimer)
+    }
     window.removeEventListener('click', handleUserActivity)
   })
 </script>

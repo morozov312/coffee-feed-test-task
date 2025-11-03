@@ -4,6 +4,4 @@
 
 </script>
 
-<main>
-  <CoffeeFeed />
-</main>
+<CoffeeFeed />

@@ -65,8 +65,9 @@ async function getCoffeeList() {
 }
 
 export async function addOneCoffee() {
-  if (get(isLoading))
+  if (get(isLoading)) {
     return
+  }
 
   isLoading.set(true)
 

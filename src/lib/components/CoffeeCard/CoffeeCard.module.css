@@ -17,19 +17,16 @@
   display: flex;
   flex-direction: column;
   height: 65%;
-
   gap: 8px;
   border-radius: 12px;
   padding: 12px;
   background: var(--card-bg);
   box-shadow: var(--shadow-2);
-}
 
-@media (max-width: 768px) {
-  .card {
+  @media (max-width: 768px) {
     flex: 1 1 100%;
     max-width: 600px;
-    height: 85%;
+    height: 86%;
   }
 }
 
