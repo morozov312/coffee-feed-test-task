@@ -58,7 +58,7 @@
 <div class={styles.wrapperContainer} data-theme={$theme}>
   <AppHeader />
 
-  <main class={styles.wrapper} data-testid='feed' bind:this={feedEl}>
+  <main class={styles.wrapper} data-testid='feed'>
     {#if $coffees.length === 0 && $isLoading}
       <div class={styles.spinner} data-testid='spinner'></div>
     {:else if $coffees.length === 0}
